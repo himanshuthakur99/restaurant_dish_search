@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dish Search</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #0056b3;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        button {
+            background-color: #0056b3;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #004494;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .no-results {
+            text-align: center;
+            font-size: 1.2em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search for a Dish</h1>
+        <form method="get">
+            {{ form.as_p }}
+            <button type="submit">Search</button>
+        </form>
+        <h2>Results</h2>
+        {% if results %}
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Items (with Prices)</th>
+                    <th>Rating</th>
+                </tr>
+                {% for dish in results %}
+                <tr>
+                    <td>{{ dish.id }}</td>
+                    <td>{{ dish.name }}</td>
+                    <td>{{ dish.location }}</td>
+                    <td>{{ dish.items|join:", " }}</td>
+                    <td>{{ dish.rating }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p class="no-results">No results found</p>
+        {% endif %}
+    </div>
+</body>
+</html>
